@@ -1,6 +1,7 @@
 import Model from '../libs/Model';
+import { ModelI } from '../interfaces/ModelI';
 
-export default class God extends Model {
+export default class God extends Model implements ModelI {
 
     id: number | null = null;
     name: string;
@@ -35,6 +36,26 @@ export default class God extends Model {
 
     setOrigin(value: string) {
         this.origin = value;
+    }
+
+    static findAll() {
+        const query = 'SELECT * from rest.god';
+        const result = Model.execQuery(query);
+        return result;
+    }
+
+    create() {
+        const query = `INSERT INTO rest.god (name, origin) VALUES ('${this.name}','${this.origin}')`;
+        const result = Model.execQuery(query);
+        return result;
+    }
+
+    update(): Promise<any> {
+        return new Promise(()=>{});
+    }
+
+    delete(): Promise<any> {
+        return new Promise(()=>{});
     }
 
 }

@@ -8,5 +8,16 @@ export default class Model {
         password: ''
     }); 
     
-    constructor() {}
+    constructor() { }
+    
+    static execQuery(query: string) {
+        let result = new Promise((resolve, reject) => {
+            Model.dbc.query(query, (err: any, rows: any, fields: any) => {
+                if (err) { reject(err); }
+                resolve(rows);
+            });
+        });
+
+        return result;
+    }
 }
