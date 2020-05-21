@@ -29,10 +29,17 @@ module GodsService {
         return result;
     }
 
-    export function create(name: string, origin: string): God {
+    export async function create(name: string, origin: string): Promise<any> {
         const god = new God(name, origin);
-        db.gods.push(god);
-        return god;
+        let result = new Promise((resolve, reject) => {
+            God.dbc.query(`INSERT INTO rest.god (name, origin) VALUES ('${god.name}','${god.origin}')`, (err: any, rows: any, fields: any) => {
+                if (err) { reject(err); }
+                resolve(rows);
+            });
+        });
+        if (await result) {
+            return god;
+        }
     }
 }
 

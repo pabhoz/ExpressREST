@@ -12,8 +12,8 @@ export async function gods(req: Request, res: Response) {
     res.status(200).json(gods);
 }
 
-export function create(req: Request, res: Response) {
-    const gods = GodsService.create(req.body.name, req.body.origin);
+export async function create(req: Request, res: Response) {
+    const gods = await GodsService.create(req.body.name, req.body.origin);
     res.status(200).json(gods);
 }
 
